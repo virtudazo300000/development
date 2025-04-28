@@ -1,5 +1,13 @@
-
 {
- "username": "testuser",
- "chat_message": "Hello, this is a chat test!"
+    "name": "John Doe",
+    "email": "john@example.com",
+    "address": "123 Main St",
+    "payment_method": "gcash", 
+    "total_amount": "299.99",
+    "products": {
+        "2": {
+            "quantity": 3,
+            "price": "99.99"
+        }
+    }
 }

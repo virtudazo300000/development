@@ -1,5 +1,8 @@
 from django.db import models
 from .exam_models import Chat
+from .product_models import Product, CartItem, Payment
+
+# ...existing code...
 
 class infoContact(models.Model):
     first_name = models.CharField(max_length=50)
@@ -7,6 +10,7 @@ class infoContact(models.Model):
     email = models.EmailField(max_length=100)
     phone_number = models.CharField(max_length=15, blank=True, null=True)
     address = models.TextField(blank=True, null=True)
+    avatar =models.ImageField(upload_to='avatars/', blank=True, null=True)  # Include avatar field
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

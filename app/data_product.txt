@@ -1,0 +1,8 @@
+{
+    "name": "Gaming Laptop",
+    "description": "High-performance gaming laptop",
+    "price": "999.99",
+    "stock": 10,
+    "category": "Electronics",
+    "image": "https://example.com/laptop.jpg"
+}
