@@ -28,25 +28,31 @@ SECRET_KEY = 'django-insecure-ol)ys&ka1b_cilp_&hf@^v4epou8ej2v8mdmuaor3!iqq429ip
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-CORS_ALLOW_ALL_ORIGINS = True
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8000",
-    "http://127.0.0.1:8100",
-    "http://localhost:5500",
-    "http://localhost:8100", 
-    "http://127.0.0.1:3329",
-    "http://172.17.100.14:8100",
-    "http://172.17.100.14:3329",
-    "http://0.0.0.0:8100", # VS Code Live Server default port
+# Media files configuration
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Add to INSTALLED_APPS if not already present
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'corsheaders',
+    'rest_framework',
+    'api',
 ]
-CORS_ALLOW_METHODS = [
-    'GET',
-    'POST',
-    'PUT',
-    'PATCH',
-    'DELETE',
-    'OPTIONS'
+
+# Update CORS settings
+CORS_ALLOW_ALL_ORIGINS = True  # For development only
+CORS_URLS_REGEX = r'^/api/.*$'
+
+# Add media types to CORS
+CORS_ALLOWED_ORIGINS = [
+    "http://172.17.100.14:3329",
 ]
 
 # Application definition
@@ -75,17 +81,6 @@ REST_FRAMEWORK = {
     ]
 }
 
-INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'rest_framework',
-    'api',
-    'corsheaders',
-]
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_HEADERS = [
     'accept',
@@ -184,10 +179,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-MEDIA_URL = 'media/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-MEDIA_ROOT = 'home/default/development/app/media/'  # Adjust this path as needed
+BASE_DIR = Path(__file__).resolve().parent.parent
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = '/home/default/development/app/media/'
+FORCE_SCRIPT_NAME = '/default'
+USE_X_FORWARDED_HOST = True
+USE_X_FORWARDED_PORT = True
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
