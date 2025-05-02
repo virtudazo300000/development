@@ -170,15 +170,19 @@ class PaymentViewSet(viewsets.ModelViewSet):
                         status=status.HTTP_400_BAD_REQUEST
                     )
 
-                # Create payment record
+                # Handle multipart form data for file upload
                 payment_data = {
                     'name': request.data.get('name'),
                     'email': request.data.get('email'),
                     'address': request.data.get('address'),
                     'payment_method': request.data.get('payment_method'),
                     'total_amount': request.data.get('total_amount'),
-                    'products': products_data  # Include products in payment data
+                    'products': products_data
                 }
+
+                # Handle avatar upload if present
+                if 'avatar' in request.FILES:
+                    payment_data['avatar'] = request.FILES['avatar']
 
                 serializer = self.get_serializer(data=payment_data)
                 serializer.is_valid(raise_exception=True)
@@ -205,7 +209,16 @@ class PaymentViewSet(viewsets.ModelViewSet):
                     'order_id': payment.id,
                     'status': 'success',
                     'message': 'Payment processed successfully',
-                    'products': serializer.data.get('products', [])
+                    'data': {
+                        'products': serializer.data.get('products', []),
+                        'avatar': serializer.data.get('avatar'),
+                        'name': serializer.data.get('name'),
+                        'email': serializer.data.get('email'),
+                        'address': serializer.data.get('address'),
+                        'payment_method': serializer.data.get('payment_method'),
+                        'total_amount': serializer.data.get('total_amount'),
+                        'created_at': serializer.data.get('created_at')
+                    }
                 }, status=status.HTTP_201_CREATED)
 
         except ValueError as e:
@@ -222,3 +235,9 @@ class PaymentViewSet(viewsets.ModelViewSet):
                 {'detail': error_detail},
                 status=status.HTTP_400_BAD_REQUEST
             )
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        if self.request.query_params.get('latest') == 'true':
+            return queryset.order_by('-created_at')[:1]
+        return queryset.order_by('-created_at')

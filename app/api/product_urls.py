@@ -13,4 +13,4 @@ urlpatterns = [
     path('payments/process/', PaymentViewSet.as_view({
         'post': 'process_payment'
     }), name='payment-process'),
-]
+]   

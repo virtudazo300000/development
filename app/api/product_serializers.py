@@ -28,6 +28,18 @@ class CartItemSerializer(serializers.ModelSerializer):
         return str(obj.quantity * obj.product.price)
 
 class PaymentSerializer(serializers.ModelSerializer):
+    avatar = serializers.ImageField(required=False, allow_null=True)
+
     class Meta:
         model = Payment
-        fields = '__all__'
+        fields = [
+            'id', 
+            'name', 
+            'email', 
+            'address', 
+            'avatar',
+            'payment_method', 
+            'total_amount', 
+            'products',
+            'created_at'
+        ]

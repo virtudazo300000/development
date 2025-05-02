@@ -62,6 +62,7 @@ class Payment(models.Model):
     name = models.CharField(max_length=100, default="Anonymous")
     email = models.EmailField()
     address = models.TextField()
+    avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)  # Add this line
     payment_method = models.CharField(max_length=20, choices=PAYMENT_CHOICES)
     total_amount = models.DecimalField(max_digits=10, decimal_places=2)
     products = models.JSONField()
@@ -77,6 +78,7 @@ class Payment(models.Model):
             'name': self.name,
             'email': self.email,
             'address': self.address,
+            'avatar': self.avatar.url if self.avatar else None,  # Add this line
             'payment_method': self.payment_method,
             'total_amount': str(self.total_amount),
             'products': self.products,

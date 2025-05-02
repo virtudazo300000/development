@@ -52,7 +52,7 @@ CORS_URLS_REGEX = r'^/api/.*$'
 
 # Add media types to CORS
 CORS_ALLOWED_ORIGINS = [
-    "http://172.17.100.14:3329",
+    "http://172.17.100.14:3383",
 ]
 
 # Application definition
@@ -137,9 +137,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',  # Use MySQL engine
         'NAME': 'default_db1',                 # Your database name
         'USER': 'default',                     # Your MySQL username
-        'PASSWORD': '123456',                  # Your MySQL password
+        'PASSWORD': '1234',                  # Your MySQL password
         'HOST': 'localhost',                   # MySQL server host (localhost if on the same machine)
-        'PORT': '3306',                        # MySQL default port
+        'PORT': '3321',                        # MySQL default port
     }
 }
 
